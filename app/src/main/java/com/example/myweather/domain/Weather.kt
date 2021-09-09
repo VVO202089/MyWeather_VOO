@@ -18,7 +18,7 @@ fun defaultCity() = City("Москва", 55.0, 37.0)
 // пока без запроса к веб сервису яндекса
 fun getDataWeather(city: City): MutableMap<String, Int> {
 
-    //получим данные от Яндекс погоды
+    //получим данные от Яндекс погоды, реализую позже
     /*with(URL.openConnection() as HttpURLConnection){
         requestMethod = "GET"
         inputStream.bufferedReader().use {
