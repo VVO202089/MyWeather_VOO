@@ -38,7 +38,7 @@ fun getDataWeather(city: City): MutableMap<String, Int> {
 
 // получение температуры (пока без запросов к яндексу)
 fun getTemperature(city: City): Int {
-    return 4
+    return 7
 }
 
 // получение "Ощущается" (пока без запросов к яндексу)
