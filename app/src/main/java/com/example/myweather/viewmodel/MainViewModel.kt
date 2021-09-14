@@ -19,16 +19,22 @@ class MainViewModel(
     // более удобная запись
     fun getLiveData() = liveDataToObserver
 
-    fun getWeatherFromLocalSource() = getDataFromRemoteSource()
+    fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(true)
 
-    fun getWeatherFromRemoteSource() = getDataFromRemoteSource()
+    fun getWeatherFromRemoteSourceWorld() = getDataFromLocalSource(false)
 
-    fun getDataFromRemoteSource() {
+    fun getWeatherFromRemoteSource() = getDataFromLocalSource(true)
+
+    // эмуляция работы сервера (задержка)
+    fun getDataFromLocalSource(isRussian:Boolean) {
 
         liveDataToObserver.postValue(AppState.Loading)
         Thread {
-            sleep(2000)
-            liveDataToObserver.postValue(AppState.Success(repositoryImpl.getWeatherLocalStorage()))
+            sleep(1000)
+            liveDataToObserver.postValue(AppState.Success(
+                if (isRussian) repositoryImpl.getWeatherFromLocalStorageRus() else
+                    repositoryImpl.getWeatherFromLocalStorageWorld()
+            ))
         }.start()
 
     }
