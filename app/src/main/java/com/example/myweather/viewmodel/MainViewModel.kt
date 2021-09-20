@@ -21,7 +21,7 @@ class MainViewModel(
 
     fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(true)
 
-    fun getWeatherFromRemoteSourceWorld() = getDataFromLocalSource(false)
+    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(false)
 
     fun getWeatherFromRemoteSource() = getDataFromLocalSource(true)
 

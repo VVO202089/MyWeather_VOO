@@ -50,15 +50,18 @@ class MainFragment : Fragment(),OnItemViewClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.mainFragmentRecyclerView.adapter = adapter
         adapter.setOnItemViewClickListener(this)
         binding.mainFragmentFAB.setOnClickListener {
             isDataSetRus = !isDataSetRus
-            viewModel.getDataFromLocalSource(isDataSetRus)
+            //viewModel.getDataFromLocalSource(isDataSetRus)
             // установим картинку
             if (isDataSetRus){
+                viewModel.getWeatherFromLocalSourceRus()
                 binding.mainFragmentFAB.setImageResource(R.drawable.ic_russia)
             }else{
+                viewModel.getWeatherFromLocalSourceWorld()
                 binding.mainFragmentFAB.setImageResource(R.drawable.ic_earth)
             }
         }
@@ -82,17 +85,19 @@ class MainFragment : Fragment(),OnItemViewClickListener {
             is AppState.Error -> TODO()
             AppState.Loading -> {
                 binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
-                //binding.message.setText("Пошла загрузка")
-                //Snackbar.make(binding.root,"Пошла загрузка",Snackbar.LENGTH_LONG).show()
+                binding.root.showSnackBarWithoutAction(R.string.goLoad)
             }
             is AppState.Success -> {
                 val weatherData = appState.weatherData
                 binding.mainFragmentLoadingLayout.visibility = View.GONE
                 adapter.setWeather(weatherData)
-                //binding.message.setText("Готово")
-                //Snackbar.make(binding.root,"Готово",Snackbar.LENGTH_LONG).show()
+                binding.root.showSnackBarWithoutAction(R.string.completed)
             }
         }
+    }
+
+    fun View.showSnackBarWithoutAction(stringId:Int){
+        Snackbar.make(binding.root,getString(stringId),Snackbar.LENGTH_LONG).show()
     }
 
     // обработчик нажатия кнопки в списке городов (из адаптера)
@@ -103,7 +108,7 @@ class MainFragment : Fragment(),OnItemViewClickListener {
         requireActivity().supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container,
-            DetailsFragment.newInstance(bundle)).addToBackStack(null).commit()
+            DetailsFragment.newInstance(bundle)).addToBackStack("").commit()
     }
 
     // функция заполнения данных из Weather

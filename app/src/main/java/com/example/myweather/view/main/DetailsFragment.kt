@@ -71,15 +71,20 @@ class DetailsFragment : Fragment() {
 
     // функция заполнения данных из Weather
     private fun setData(weatherData: Weather) {
-        binding.cityName.text = weatherData.city.name;
-        binding.cityCoordinates.text = String.format(
-            getString(R.string.city_coordinates),
-            weatherData.city.lat.toString(),
-            weatherData.city.lon.toString()
-        )
-        binding.temperatureValue.text = weatherData.dataWeather.get("temperature").toString()
-        binding.feelsLikeValue.text = weatherData.dataWeather.get("feelsLike").toString()
-        binding.pressureValue.text = weatherData.dataWeather.get("pressure").toString()
+
+        // так как нет смысла постоянно дергать "binding"
+        with(binding){
+            cityName.text = weatherData.city.name;
+            cityCoordinates.text = String.format(
+                getString(R.string.city_coordinates),
+                weatherData.city.lat.toString(),
+                weatherData.city.lon.toString()
+            )
+            temperatureValue.text = weatherData.dataWeather.get("temperature").toString()
+            feelsLikeValue.text = weatherData.dataWeather.get("feelsLike").toString()
+            pressureValue.text = weatherData.dataWeather.get("pressure").toString()
+        }
+
     }
 
 }
