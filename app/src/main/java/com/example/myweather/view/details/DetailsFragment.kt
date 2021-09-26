@@ -1,20 +1,23 @@
-package com.example.myweather.view.main
+package com.example.myweather.view.details
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.myweather.R
 import com.example.myweather.databinding.FragmentDetailsBinding
-import com.example.myweather.databinding.FragmentMainBinding
 import com.example.myweather.domain.Weather
-import com.example.myweather.viewmodel.AppState
+import com.example.myweather.repository.WeatherDTO
+import com.example.myweather.repository.WeatherLoaderListener
+import com.example.myweather.repository.Weatherloader
+import com.example.myweather.view.main.MainFragment
 import com.example.myweather.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(),WeatherLoaderListener {
 
     // lateinit - инициализировать позже
    private lateinit var viewModel: MainViewModel
@@ -25,6 +28,10 @@ class DetailsFragment : Fragment() {
         get() {
             return _binding!!
         }
+    // weather с отложенной реализацией
+    val localWeather:Weather by lazy {
+        (arguments?.getParcelable(BUNDLE_WEATHER_KEY))?:Weather()
+    }
 
     // резервация для статических методов
     companion object {
@@ -35,7 +42,7 @@ class DetailsFragment : Fragment() {
         }*/
 
         // у нас DetailsFragment всегда получает какие - то данные.
-        fun newInstance(bundle: Bundle) : DetailsFragment{
+        fun newInstance(bundle: Bundle) : DetailsFragment {
             val fragment = DetailsFragment()
             fragment.arguments = bundle
             return fragment
@@ -59,8 +66,7 @@ class DetailsFragment : Fragment() {
     // после onCreateView()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = (arguments?.getParcelable<Weather>(BUNDLE_WEATHER_KEY))?:Weather()
-        setData(weather)
+        Weatherloader(this,localWeather.city.lat,localWeather.city.lon).loadWeather()
     }
 
     // при выходе из фрагмента (при нажатии "назад")
@@ -70,21 +76,34 @@ class DetailsFragment : Fragment() {
     }
 
     // функция заполнения данных из Weather
-    private fun setData(weatherData: Weather) {
+    private fun showWeather(weatherDTO: WeatherDTO) {
 
         // так как нет смысла постоянно дергать "binding"
         with(binding){
-            cityName.text = weatherData.city.name;
+            cityName.text = localWeather.city.name;
             cityCoordinates.text = String.format(
                 getString(R.string.city_coordinates),
-                weatherData.city.lat.toString(),
-                weatherData.city.lon.toString()
+                localWeather.city.lat.toString(),
+                localWeather.city.lon.toString()
             )
-            temperatureValue.text = weatherData.dataWeather.get("temperature").toString()
-            feelsLikeValue.text = weatherData.dataWeather.get("feelsLike").toString()
-            pressureValue.text = weatherData.dataWeather.get("pressure").toString()
+            temperatureValue.text = weatherDTO.fact.temp.toString()
+            feelsLikeValue.text = weatherDTO.fact.feels_like.toString()
+            binding.pressureValue.text = weatherDTO.fact.pressure_mm.toString()
+            binding.windSpeedValue.text = weatherDTO.fact.wind_speed.toString()
         }
 
     }
+
+    override fun onLoaded(weatherDTO: WeatherDTO) {
+        showWeather(weatherDTO)
+    }
+
+    override fun onFailed(throwable: Throwable) {
+        Snackbar.make(binding.root,throwable.toString(),Snackbar.LENGTH_LONG).show()
+    }
+
+    /*fun View.showSnackBarWithoutAction(stringId:Int){
+        Snackbar.make(binding.root,getString(stringId),Snackbar.LENGTH_LONG).show()
+    }*/
 
 }

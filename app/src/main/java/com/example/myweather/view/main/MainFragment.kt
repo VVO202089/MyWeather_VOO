@@ -11,6 +11,7 @@ import com.example.myweather.R
 import com.example.myweather.databinding.FragmentMainBinding
 import com.example.myweather.domain.Weather
 import com.example.myweather.view.OnItemViewClickListener
+import com.example.myweather.view.details.DetailsFragment
 import com.example.myweather.viewmodel.AppState
 import com.example.myweather.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -107,7 +108,7 @@ class MainFragment : Fragment(),OnItemViewClickListener {
         bundle.putParcelable(DetailsFragment.BUNDLE_WEATHER_KEY,weather)
         requireActivity().supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container,
+            .add(R.id.fragment_container,
             DetailsFragment.newInstance(bundle)).addToBackStack("").commit()
     }
 
