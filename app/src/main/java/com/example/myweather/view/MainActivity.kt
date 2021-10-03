@@ -1,30 +1,29 @@
 package com.example.myweather.view
 
-import android.os.Build
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
-import androidx.annotation.RequiresApi
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myweather.R
-import com.example.myweather.databinding.ActivityMainBinding
-import com.example.myweather.databinding.ActivityMainWebviewBinding
+import com.example.myweather.lesson6.MainBroadcastReceiver
+import com.example.myweather.lesson6.ThreadsFragment
+import com.example.myweather.view.details.DetailsFragment.Companion.newInstance
 import com.example.myweather.view.main.MainFragment
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.stream.Collectors
-import javax.net.ssl.HttpsURLConnection
+import com.example.myweather.view.main.MainFragment.Companion.newInstance
+import ru.geekbrains.lesson_1423_2_2_main.R
+import ru.geekbrains.lesson_1423_2_2_main.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainWebviewBinding
+    lateinit var binding: ActivityMainBinding
+    private val receiver = MainBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // мусор
         /*binding = ActivityMainWebviewBinding.inflate(layoutInflater)
@@ -38,13 +37,19 @@ class MainActivity : AppCompatActivity() {
         })
         */
 
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
 
         // тут у нас открывается фрагмент, где и происходит вся движуха (single - activity)
-        if(savedInstanceState == null)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, MainFragment.newInstance())
-            .commit()
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, MainFragment.newInstance())
+                .commit()
+
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+        registerReceiver(receiver, IntentFilter("myaction"))
+
+        //val mySendIntent = Intent("myaction")
+        //sendBroadcast(mySendIntent)
 
     }
 
@@ -81,5 +86,19 @@ class MainActivity : AppCompatActivity() {
         return reader.lines().collect(Collectors.joining("\n"))
     }*/
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_screen_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.action_open_fragment_threads ->{
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ThreadsFragment.newInstance()).commit()
+                true
+            }
+            else ->super.onOptionsItemSelected(item)
+        }
+    }
 }

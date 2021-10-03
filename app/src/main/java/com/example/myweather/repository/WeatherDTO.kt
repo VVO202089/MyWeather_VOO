@@ -1,3 +1,7 @@
 package com.example.myweather.repository
 
-data class WeatherDTO (val fact : FactDTO)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class WeatherDTO (val fact : FactDTO):Parcelable

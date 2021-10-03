@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myweather.R
 import com.example.myweather.domain.Weather
 import com.example.myweather.view.OnItemViewClickListener
+import ru.geekbrains.lesson_1423_2_2_main.R
 
 class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainFragmentViewHolder>() {
 
