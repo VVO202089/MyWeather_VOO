@@ -52,7 +52,6 @@ class DetailsService(name: String = "name") : IntentService(name) {
             val mySendIntent = Intent(DETAILS_INTENT_FILTER )
             mySendIntent.putExtra(DETAILS_LOAD_RESULT_EXTRA,weatherDTO)
             LocalBroadcastManager.getInstance(this).sendBroadcast(mySendIntent)
-
             urlConnection.disconnect()
         }.start()
     }

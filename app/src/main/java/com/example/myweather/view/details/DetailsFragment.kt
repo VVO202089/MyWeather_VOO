@@ -4,26 +4,16 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.myweather.domain.Weather
-import com.example.myweather.lesson6.MAIN_SERVICE_STRING_EXTRA
-import com.example.myweather.lesson6.MainService
-import com.example.myweather.lesson6.THREADS_FRAGMENT_BROADCAST_EXTRA
 import com.example.myweather.repository.WeatherDTO
 import com.example.myweather.repository.WeatherLoaderListener
-import com.example.myweather.repository.Weatherloader
-import com.example.myweather.view.main.MainFragment
-import com.example.myweather.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import ru.geekbrains.lesson_1423_2_2_main.R
 import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment(), WeatherLoaderListener {
@@ -35,7 +25,7 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
                 if (weatherDTO != null) {
                     showWeather(weatherDTO)
                 } else {
-                    // HW ERROR
+                    Snackbar.make(binding.mainView,"ошибка при получении данных!",Snackbar.LENGTH_LONG).show()
                 }
             }
 
@@ -114,7 +104,7 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
     }
 
     override fun onFailed(throwable: Throwable) {
-        // HW
+        // не получилось пробросить исключение
     }
 
 }
