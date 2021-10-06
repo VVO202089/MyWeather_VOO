@@ -17,5 +17,15 @@
     <string name="feels_like_label">Ощущается как</string>
     <string name="city_coordinates">lt/ln: %s, %s"</string>
     <string name="pressure_label">Давление (в мм рт. ст.)</string>
+    <string name="wind_label">Скорость ветра м/с</string>
+    <dimen name="fab_icon_size">56dp</dimen>
+    <dimen name="fab_margin">15dp</dimen>
+    <dimen name="recycler_item_padding">10dp</dimen>
+    <dimen name="recycler_item_text_size">25sp</dimen>
+    <dimen name="recycler_item_line_height">1dp</dimen>
+    <dimen name="recycler_item_line_margin_end">20dp</dimen>
+    <string name="completed">"Готово"</string>
+    <string name="goLoad">"Пошла загрузка"</string>
+    <string name="error">Ошибка!</string>
 
 </resources>
