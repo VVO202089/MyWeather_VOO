@@ -19,7 +19,7 @@ class MainService(name:String = "name"):IntentService(name) {
     }
 
     override fun onCreate() {
-        createLoadMessage("OnCreate")
+        createLoadMessage("onCreate")
          super.onCreate()
     }
 

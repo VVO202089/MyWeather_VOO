@@ -18,8 +18,14 @@ import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment(), WeatherLoaderListener {
 
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding: FragmentDetailsBinding
+        get() {
+            return _binding!!
+        }
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+
             intent?.let {
                 val weatherDTO = it.getParcelableExtra<WeatherDTO>(DETAILS_LOAD_RESULT_EXTRA)
                 if (weatherDTO != null) {
@@ -39,12 +45,6 @@ class DetailsFragment : Fragment(), WeatherLoaderListener {
         override fun onFailed(throwable: Throwable) {
         }
     }
-
-    private var _binding: FragmentDetailsBinding? = null
-    private val binding: FragmentDetailsBinding
-        get() {
-            return _binding!!
-        }
 
     companion object {
         fun newInstance(bundle: Bundle): DetailsFragment {

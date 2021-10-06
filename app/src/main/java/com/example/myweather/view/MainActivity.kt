@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
         registerReceiver(receiver, IntentFilter("myaction"))
 
-        //val mySendIntent = Intent("myaction")
-        //sendBroadcast(mySendIntent)
+        val mySendIntent = Intent("myaction")
+        sendBroadcast(mySendIntent)
 
     }
 
