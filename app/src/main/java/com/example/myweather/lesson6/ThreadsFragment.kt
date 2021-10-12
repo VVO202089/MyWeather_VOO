@@ -1,9 +1,6 @@
 package com.example.myweather.lesson6
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,11 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import kotlinx.android.synthetic.main.fragment_threads.*
-import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentThreadsBinding
+import com.example.myweather.databinding.FragmentThreadsBinding
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 const val TEST_BROADCAST_INTENT_FILTER = "TEST BROADCAST INTENT FILTER"
 const val THREADS_FRAGMENT_BROADCAST_EXTRA = "THREADS_FRAGMENT_EXTRA"
@@ -85,7 +79,7 @@ class ThreadsFragment : Fragment() {
         binding.calcThreadHandlerBtn.setOnClickListener {
             // проверка на null
             val handler = handlerThread.mHandler
-            handler?.post{
+            handler?.post {
                 val timer = binding.editText.text.toString().toInt()
                 startCalculations(timer)
                 myHandler1991.post(Runnable {
@@ -101,7 +95,7 @@ class ThreadsFragment : Fragment() {
 
         binding.btnService.setOnClickListener {
             context?.let {
-                val intent = Intent(it,MainService::class.java)
+                val intent = Intent(it, MainService::class.java)
                 intent.putExtra(MAIN_SERVICE_STRING_EXTRA, "Привет сервис, я фрагмент")
                 it.startService(intent)
             }
@@ -109,7 +103,7 @@ class ThreadsFragment : Fragment() {
 
         binding.btnServiceBroadcast.setOnClickListener {
             context?.let {
-                val intent = Intent(it,MainService::class.java)
+                val intent = Intent(it, MainService::class.java)
                 intent.putExtra(MAIN_SERVICE_STRING_EXTRA, "Привет сервис, я фрагмент")
                 it.startService(intent)
             }
@@ -130,9 +124,9 @@ class ThreadsFragment : Fragment() {
 
 }
 
-class MyThread:Thread(){
+class MyThread : Thread() {
 
-    var mHandler:Handler?=null
+    var mHandler: Handler? = null
     override fun run() {
         Looper.prepare()
         mHandler = Handler(Looper.myLooper()!!)

@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.myweather.R
+import com.example.myweather.databinding.FragmentMainBinding
 import com.example.myweather.domain.Weather
 import com.example.myweather.view.OnItemViewClickListener
 import com.example.myweather.view.details.DetailsFragment
 import com.example.myweather.viewmodel.AppState
 import com.example.myweather.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import ru.geekbrains.lesson_1423_2_2_main.R
-import ru.geekbrains.lesson_1423_2_2_main.databinding.FragmentMainBinding
 
-class MainFragment : Fragment(),OnItemViewClickListener {
+class MainFragment : Fragment(), OnItemViewClickListener {
 
     // lateinit - инициализировать позже
     private lateinit var viewModel: MainViewModel
@@ -58,10 +58,10 @@ class MainFragment : Fragment(),OnItemViewClickListener {
             isDataSetRus = !isDataSetRus
             //viewModel.getDataFromLocalSource(isDataSetRus)
             // установим картинку
-            if (isDataSetRus){
+            if (isDataSetRus) {
                 viewModel.getWeatherFromLocalSourceRus()
                 binding.mainFragmentFAB.setImageResource(R.drawable.ic_russia)
-            }else{
+            } else {
                 viewModel.getWeatherFromLocalSourceWorld()
                 binding.mainFragmentFAB.setImageResource(R.drawable.ic_earth)
             }
@@ -97,19 +97,21 @@ class MainFragment : Fragment(),OnItemViewClickListener {
         }
     }
 
-    fun View.showSnackBarWithoutAction(stringId:Int){
-        Snackbar.make(binding.root,getString(stringId),Snackbar.LENGTH_LONG).show()
+    fun View.showSnackBarWithoutAction(stringId: Int) {
+        Snackbar.make(binding.root, getString(stringId), Snackbar.LENGTH_LONG).show()
     }
 
     // обработчик нажатия кнопки в списке городов (из адаптера)
     override fun onItemClick(weather: Weather) {
 
         val bundle = Bundle();
-        bundle.putParcelable(DetailsFragment.BUNDLE_WEATHER_KEY,weather)
+        bundle.putParcelable(DetailsFragment.BUNDLE_WEATHER_KEY, weather)
         requireActivity().supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragment_container,
-            DetailsFragment.newInstance(bundle)).addToBackStack("").commit()
+            .add(
+                R.id.fragment_container,
+                DetailsFragment.newInstance(bundle)
+            ).addToBackStack("").commit()
     }
 
     // функция заполнения данных из Weather

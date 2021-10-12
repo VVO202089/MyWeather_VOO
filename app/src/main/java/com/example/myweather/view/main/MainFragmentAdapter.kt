@@ -4,22 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myweather.R
 import com.example.myweather.domain.Weather
 import com.example.myweather.view.OnItemViewClickListener
-import ru.geekbrains.lesson_1423_2_2_main.R
 
 class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainFragmentViewHolder>() {
 
     private var weatherData: List<Weather> = listOf()
-    private lateinit var listener : OnItemViewClickListener
+    private lateinit var listener: OnItemViewClickListener
 
     fun setWeather(data: List<Weather>) {
         weatherData = data
         notifyDataSetChanged() // Обновление данных
     }
-    fun setOnItemViewClickListener(onItemViewClickListener: OnItemViewClickListener){
+
+    fun setOnItemViewClickListener(onItemViewClickListener: OnItemViewClickListener) {
         listener = onItemViewClickListener
     }
 

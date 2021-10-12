@@ -14,6 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/cityName"
             android:layout_width="wrap_content"
@@ -23,7 +31,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ImageView"
             tools:text="Москва" />
 
         <TextView
@@ -88,7 +96,7 @@
             android:text="@string/pressure_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feelsLikeValue"/>
+            app:layout_constraintTop_toBottomOf="@+id/feelsLikeValue" />
 
         <TextView
             android:id="@+id/pressureValue"
@@ -100,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pressureLabel"
-            tools:text="646"/>
+            tools:text="646" />
 
         <TextView
             android:id="@+id/windSpeedLabel"
@@ -110,7 +118,7 @@
             android:text="@string/wind_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pressureValue"/>
+            app:layout_constraintTop_toBottomOf="@+id/pressureValue" />
 
         <TextView
             android:id="@+id/windSpeedValue"
@@ -122,7 +130,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/windSpeedLabel"
-            tools:text="646"/>
+            tools:text="646" />
 
 
         <TextView

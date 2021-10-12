@@ -29,9 +29,9 @@ class LambdaKotlin {
         }
     }
 
-    data class Person(var name:String,var age:Int)
+    data class Person(var name: String, var age: Int)
 
-    fun p2(person: Person){
+    fun p2(person: Person) {
         Log.d("MyLog", "${person.name}")
     }
 
