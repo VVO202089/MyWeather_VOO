@@ -1,4 +1,4 @@
-package com.example.myweather.view
+package com.example.myweather.view.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myweather.R
 import com.example.myweather.databinding.FragmentMainBinding
 import com.example.myweather.domain.Weather
+import com.example.myweather.view.OnItemViewClickListener
+import com.example.myweather.view.details.DetailsFragment
 import com.example.myweather.viewmodel.AppState
 import com.example.myweather.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnItemViewClickListener {
 
     // lateinit - инициализировать позже
     private lateinit var viewModel: MainViewModel
@@ -26,13 +28,13 @@ class MainFragment : Fragment() {
             return _binding!!
         }
 
+    private var isDataSetRus: Boolean = true
+    private var adapter = MainFragmentAdapter()
+
     // резервация для статических методов
     companion object {
 
-        // инициализация метода newInstance абсолютно идентичны
-        /*fun newInstance():Fragment{
-            return MainFragment()
-        }*/
+        // метод, который используется для создания экземпляра класса
         fun newInstance() = MainFragment()
     }
 
@@ -42,7 +44,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //return inflater.inflate(R.layout.fragment_main,container,false)
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -50,6 +51,21 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.mainFragmentRecyclerView.adapter = adapter
+        adapter.setOnItemViewClickListener(this)
+        binding.mainFragmentFAB.setOnClickListener {
+            isDataSetRus = !isDataSetRus
+            //viewModel.getDataFromLocalSource(isDataSetRus)
+            // установим картинку
+            if (isDataSetRus) {
+                viewModel.getWeatherFromLocalSourceRus()
+                binding.mainFragmentFAB.setImageResource(R.drawable.ic_russia)
+            } else {
+                viewModel.getWeatherFromLocalSourceWorld()
+                binding.mainFragmentFAB.setImageResource(R.drawable.ic_earth)
+            }
+        }
         // инициализация
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // подписка на событие изменение и в зависимости от того, какой у нас результат
@@ -57,7 +73,7 @@ class MainFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer<AppState> {
             renderData(it)
         })
-        viewModel.getDataFromRemoteSource()
+        viewModel.getWeatherFromLocalSourceRus()
     }
 
     override fun onDestroy() {
@@ -69,22 +85,37 @@ class MainFragment : Fragment() {
         when (appState) {
             is AppState.Error -> TODO()
             AppState.Loading -> {
-                binding.loadingLayout.visibility = View.VISIBLE
-                //binding.message.setText("Пошла загрузка")
-                //Snackbar.make(binding.message,"Пошла загрузка",Snackbar.LENGTH_LONG).show()
+                binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
+                binding.root.showSnackBarWithoutAction(R.string.goLoad)
             }
             is AppState.Success -> {
                 val weatherData = appState.weatherData
-                binding.loadingLayout.visibility = View.GONE
-                setData(weatherData)
-                //binding.message.setText("Готово")
-                //Snackbar.make(binding.message,"Готово",Snackbar.LENGTH_LONG).show()
+                binding.mainFragmentLoadingLayout.visibility = View.GONE
+                adapter.setWeather(weatherData)
+                binding.root.showSnackBarWithoutAction(R.string.completed)
             }
         }
     }
 
+    fun View.showSnackBarWithoutAction(stringId: Int) {
+        Snackbar.make(binding.root, getString(stringId), Snackbar.LENGTH_LONG).show()
+    }
+
+    // обработчик нажатия кнопки в списке городов (из адаптера)
+    override fun onItemClick(weather: Weather) {
+
+        val bundle = Bundle();
+        bundle.putParcelable(DetailsFragment.BUNDLE_WEATHER_KEY, weather)
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .add(
+                R.id.fragment_container,
+                DetailsFragment.newInstance(bundle)
+            ).addToBackStack("").commit()
+    }
+
     // функция заполнения данных из Weather
-    private fun setData(weatherData: Weather) {
+    /*private fun setData(weatherData: List<Weather>) {
         binding.cityName.text = weatherData.city.name;
         binding.cityCoordinates.text = String.format(
             getString(R.string.city_coordinates),
@@ -94,6 +125,6 @@ class MainFragment : Fragment() {
         binding.temperatureValue.text = weatherData.dataWeather.get("temperature").toString()
         binding.feelsLikeValue.text = weatherData.dataWeather.get("feelsLike").toString()
         binding.pressureValue.text = weatherData.dataWeather.get("pressure").toString()
-    }
+    }*/
 
 }
