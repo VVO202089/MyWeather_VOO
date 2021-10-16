@@ -108,7 +108,7 @@ class DetailsFragment : Fragment() {
                 binding.mainView.visibility = View.VISIBLE
                 val weatherData = appState.weatherData
                 showWeather(weatherData[0])
-                Snackbar.make(binding.root,"Success",Snackbar.LENGTH_LONG).show()
+                //Snackbar.make(binding.root,"Success",Snackbar.LENGTH_LONG).show()
             }
         }
     }

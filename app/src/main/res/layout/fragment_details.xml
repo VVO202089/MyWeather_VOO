@@ -5,14 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:clickable="true"
-    android:focusable="true"
-    android:background="@color/white">
+    android:focusable="true">
+
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ImageView"
@@ -21,7 +25,9 @@
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/todo" />
+
         <TextView
             android:id="@+id/cityName"
             android:layout_width="wrap_content"
@@ -132,7 +138,6 @@
             app:layout_constraintTop_toBottomOf="@+id/windSpeedLabel"
             tools:text="646" />
 
-
         <TextView
             android:id="@+id/weatherCondition"
             android:layout_width="wrap_content"
@@ -146,6 +151,8 @@
             tools:text="Облачно" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -161,6 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
     </FrameLayout>
+
 
 </FrameLayout>
 

@@ -27,5 +27,6 @@
     <string name="completed">"Готово"</string>
     <string name="goLoad">"Пошла загрузка"</string>
     <string name="error">Ошибка!</string>
+    <string name="todo">TODO</string>
 
 </resources>
