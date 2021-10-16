@@ -99,11 +99,13 @@ class DetailsFragment : Fragment() {
                     viewModel.getWeatherFromRemoteSource(localWeather.city.lat,localWeather.city.lon)
                 })
             }
-            AppState.Loading -> {
+            is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
                 binding.mainView.visibility = View.INVISIBLE
             }
             is AppState.Success -> {
+                binding.loadingLayout.visibility = View.INVISIBLE
+                binding.mainView.visibility = View.VISIBLE
                 val weatherData = appState.weatherData
                 showWeather(weatherData[0])
                 Snackbar.make(binding.root,"Success",Snackbar.LENGTH_LONG).show()

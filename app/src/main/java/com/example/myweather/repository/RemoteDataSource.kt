@@ -37,6 +37,6 @@ class RemoteDataSource {
 
     // перечень запросов из интерфейса WeatherApi
         fun getWeatherDetails(lat: Double, lon: Double, Callback: Callback<WeatherDTO>) {
-            weatherApi.getWeather(YANDEX_API_KEY,lat,lon).enqueue(Callback)
+            weatherApi.getWeather(YANDEX_API_VALUE,lat,lon).enqueue(Callback)
         }
     }

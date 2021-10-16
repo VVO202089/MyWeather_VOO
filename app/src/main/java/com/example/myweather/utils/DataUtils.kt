@@ -7,11 +7,12 @@ import com.example.myweather.repository.FactDTO
 import com.example.myweather.repository.WeatherDTO
 
 fun convertDTOtoModel(weatherDTO: WeatherDTO): List<Weather> {
-    val fact : FactDTO = weatherDTO.fact
+    //val fact : FactDTO = weatherDTO.fact
     return listOf(Weather(
-        defaultCity(),fact.temp!!,
-        fact.feels_like!!,
-        fact.condition!!,
-        fact.pressure_mm!!,
-        fact.wind_speed!!))
+        defaultCity(),weatherDTO.fact.temp!!,
+        weatherDTO.fact.feels_like!!,
+        weatherDTO.fact.condition!!,
+        weatherDTO.fact.pressure_mm!!,
+        weatherDTO.fact.wind_speed!!,
+        weatherDTO.fact.icon))
 }

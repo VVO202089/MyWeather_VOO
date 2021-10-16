@@ -15,7 +15,7 @@ private const val CORRUPTED_DATA = "Неполные данные"
 
 class DetailsViewModel(
 
-    val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
+    //val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsLiveDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsRepositoryImpl: DetailsRepositoryImpl = DetailsRepositoryImpl(
         RemoteDataSource()
@@ -42,7 +42,7 @@ class DetailsViewModel(
             if(response.isSuccessful&&response.body()!=null){
                 val weatherDTO = response.body()
                 weatherDTO?.let{
-                    detailsLiveData.postValue( AppState.Success(convertDTOtoModel(weatherDTO)))
+                    detailsLiveDataToObserver.postValue( AppState.Success(convertDTOtoModel(weatherDTO)))
                 }
             }else{
                 // TODO HW   detailsLiveDataToObserve.postValue( AppState.Error("dfhgerh"))
@@ -51,7 +51,7 @@ class DetailsViewModel(
 
         // неудачно
         override fun onFailure(call: retrofit2.Call<WeatherDTO>, t: Throwable) {
-            detailsLiveData.postValue(AppState.Error(Throwable(t.message ?: REQUEST_ERROR)))
+            detailsLiveDataToObserver.postValue(AppState.Error(Throwable(t.message ?: REQUEST_ERROR)))
         }
 
     }
