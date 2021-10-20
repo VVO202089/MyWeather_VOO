@@ -88,7 +88,7 @@ class MainFragment : Fragment(), OnItemViewClickListener {
                 binding.mainFragmentLoadingLayout.visibility = View.VISIBLE
                 binding.root.showSnackBarWithoutAction(R.string.goLoad)
             }
-            is AppState.Success -> {
+            is AppState.SuccessMain -> {
                 val weatherData = appState.weatherData
                 binding.mainFragmentLoadingLayout.visibility = View.GONE
                 adapter.setWeather(weatherData)

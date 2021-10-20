@@ -3,9 +3,9 @@ package com.example.myweather.viewmodel
 import android.net.sip.SipErrorCode.SERVER_ERROR
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myweather.repository.DetailsRepositoryImpl
-import com.example.myweather.repository.RemoteDataSource
-import com.example.myweather.repository.WeatherDTO
+import com.example.myweather.MyApp
+import com.example.myweather.domain.Weather
+import com.example.myweather.repository.*
 import com.example.myweather.utils.convertDTOtoModel
 
 // константы
@@ -19,8 +19,15 @@ class DetailsViewModel(
     private val detailsLiveDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsRepositoryImpl: DetailsRepositoryImpl = DetailsRepositoryImpl(
         RemoteDataSource()
+    ),
+    private val historyRepositotyImpl:LocalRepository = LocalRepositoryImpl(
+        MyApp.getHistoryDAO()
     )
 ) : ViewModel() {
+
+    fun saveWeather(weather: Weather){
+        historyRepositotyImpl.saveEntity(weather)
+    }
 
     // более удобная запись
     fun getLiveData() = detailsLiveDataToObserver
@@ -42,7 +49,7 @@ class DetailsViewModel(
             if(response.isSuccessful&&response.body()!=null){
                 val weatherDTO = response.body()
                 weatherDTO?.let{
-                    detailsLiveDataToObserver.postValue( AppState.Success(convertDTOtoModel(weatherDTO)))
+                    detailsLiveDataToObserver.postValue( AppState.SuccessMain(convertDTOtoModel(weatherDTO)))
                 }
             }else{
                 // TODO HW   detailsLiveDataToObserve.postValue( AppState.Error("dfhgerh"))

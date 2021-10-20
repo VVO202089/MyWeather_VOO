@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import okhttp3.*
+import java.nio.file.WatchEvent
 
 class DetailsFragment : Fragment() {
 
@@ -85,7 +86,7 @@ class DetailsFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer {
             renderData(it)
         })
-        viewModel.getWeatherFromRemoteSource(localWeather.city.lat,localWeather.city.lon)
+       getWeather()
     }
 
     fun renderData(appState: AppState) {
@@ -96,14 +97,14 @@ class DetailsFragment : Fragment() {
                 val throbable = appState.error
                 //Snackbar.make(binding.root,"$throbable",Snackbar.LENGTH_LONG).show()
                 binding.root.show("ERROR $throbable","RELOAD",{
-                    viewModel.getWeatherFromRemoteSource(localWeather.city.lat,localWeather.city.lon)
+                    getWeather()
                 })
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
                 binding.mainView.visibility = View.INVISIBLE
             }
-            is AppState.Success -> {
+            is AppState.SuccessMain -> {
                 binding.loadingLayout.visibility = View.INVISIBLE
                 binding.mainView.visibility = View.VISIBLE
                 val weatherData = appState.weatherData
@@ -111,6 +112,10 @@ class DetailsFragment : Fragment() {
                 //Snackbar.make(binding.root,"Success",Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    fun getWeather(){
+        viewModel.getWeatherFromRemoteSource(localWeather.city.lat,localWeather.city.lon)
     }
 
     /*fun getWeather() {
@@ -163,7 +168,13 @@ class DetailsFragment : Fragment() {
      */
 
     private fun showWeather(weather: Weather) {
-
+        // сохраняем элемент погоды
+        viewModel.saveWeather(Weather(localWeather.city,
+            localWeather.temp,
+            localWeather.feelsLike,
+            localWeather.condition,
+            localWeather.pressuremm,
+            localWeather.windSpeed))
         // разобрать
         with(binding) {
             cityName.text = localWeather.city.name
