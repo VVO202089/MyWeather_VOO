@@ -28,5 +28,6 @@
     <string name="goLoad">"Пошла загрузка"</string>
     <string name="error">Ошибка!</string>
     <string name="todo">TODO</string>
+    <string name="avtority">com.example.myweather.provider</string>
 
 </resources>

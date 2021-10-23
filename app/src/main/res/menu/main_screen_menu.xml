@@ -9,9 +9,13 @@
     <item
         android:id="@+id/action_open_fragment_history"
         android:title="History"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_clear_history"
         android:title="Clear history"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_open_fragment_content_provider"
+        android:title="Provider"
         app:showAsAction="always" />
 </menu>

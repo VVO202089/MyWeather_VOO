@@ -9,6 +9,7 @@ import com.example.myweather.databinding.ActivityMainBinding
 import com.example.myweather.domain.Weather
 import com.example.myweather.lesson6.MainBroadcastReceiver
 import com.example.myweather.lesson6.ThreadsFragment
+import com.example.myweather.lesson9.ContentProviderFragment
 import com.example.myweather.view.history.HistoryAdapter
 import com.example.myweather.view.history.HistoryFragment
 import com.example.myweather.view.main.MainFragment
@@ -105,6 +106,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_clear_history -> {
                 // пока не понял, как обратиться к методу очистки истории
                 //HistoryFragment.
+                true
+            }
+            R.id.action_open_fragment_content_provider -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ContentProviderFragment.newInstance())
+                    .addToBackStack("").commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)

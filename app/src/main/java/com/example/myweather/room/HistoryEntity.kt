@@ -8,12 +8,12 @@ import androidx.room.PrimaryKey
 data class HistoryEntity(
     // уникальное поле
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    val name: String,
-    val temp: Int,
-    val feelsLike: Int,
-    val condition: String,
-    val pressuremm:Int,
-    val windSpeed:Double
+    var id: Long = 0,
+    var name: String = "",
+    var temp: Int = 0,
+    var feelsLike: Int = 0,
+    var condition: String = "",
+    var pressuremm:Int =  0,
+    var windSpeed:Double = 0.0
 )
 
