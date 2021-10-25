@@ -1,7 +1,6 @@
 package com.example.myweather.viewmodel
 
 import com.example.myweather.domain.Weather
-import com.example.myweather.repository.WeatherDTO
 
 sealed class AppState {
 

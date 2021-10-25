@@ -1,11 +1,10 @@
 package com.example.myweather.viewmodel
 
-import android.net.sip.SipErrorCode.SERVER_ERROR
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myweather.MyApp
-import com.example.myweather.repository.*
-import com.example.myweather.utils.convertDTOtoModel
+import com.example.myweather.repository.LocalRepository
+import com.example.myweather.repository.LocalRepositoryImpl
 
 // константы
 private const val SERVER_ERROR = "Ошибка сервера"
@@ -28,5 +27,7 @@ class HistoryViewModel(
         historyLiveDataToObserver.value = AppState.SuccessMain(historyRepositotyImpl.getAllHistory());
 
     }
+
+    fun deleteAll() = historyRepositotyImpl.deleteAll()
 
 }

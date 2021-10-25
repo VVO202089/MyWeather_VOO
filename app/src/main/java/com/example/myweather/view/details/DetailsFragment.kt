@@ -10,15 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.myweather.databinding.FragmentDetailsBinding
 import com.example.myweather.domain.Weather
-import com.example.myweather.repository.WeatherDTO
 import com.example.myweather.utils.show
 import com.example.myweather.viewmodel.AppState
 import com.example.myweather.viewmodel.DetailsViewModel
-import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_details.view.*
-import okhttp3.*
-import java.nio.file.WatchEvent
 
 class DetailsFragment : Fragment() {
 

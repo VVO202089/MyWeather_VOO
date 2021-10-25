@@ -1,21 +1,14 @@
 package com.example.myweather.view.history
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myweather.R
 import com.example.myweather.databinding.FragmentHistoryBinding
-import com.example.myweather.databinding.FragmentMainBinding
 import com.example.myweather.domain.Weather
-import com.example.myweather.view.OnItemViewClickListener
-import com.example.myweather.view.details.DetailsFragment
 import com.example.myweather.viewmodel.AppState
 import com.example.myweather.viewmodel.HistoryViewModel
-import com.example.myweather.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class HistoryFragment : Fragment() {
@@ -48,6 +41,11 @@ class HistoryFragment : Fragment() {
         fun newInstance() = HistoryFragment()
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true);
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,6 +63,23 @@ class HistoryFragment : Fragment() {
             renderData((it))
         })
         viewModel.getAllHistory()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_fragment_history,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.action_clear_history ->{
+                viewModel.deleteAll()
+                adapter.setWeather(listOf())
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

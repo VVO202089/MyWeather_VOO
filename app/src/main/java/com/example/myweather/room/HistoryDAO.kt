@@ -18,6 +18,9 @@ interface HistoryDAO {
     @Delete
     fun delete(entity: HistoryEntity)
 
+    @Query("DELETE FROM HistoryEntity")
+    fun deleteAll()
+
     @Update
     fun update(entity: HistoryEntity)
 

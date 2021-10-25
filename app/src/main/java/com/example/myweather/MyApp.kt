@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.room.Room
 import com.example.myweather.room.HistoryDAO
 import com.example.myweather.room.HistoryDataBase
-import java.lang.IllegalStateException
 
 class MyApp:Application() {
 

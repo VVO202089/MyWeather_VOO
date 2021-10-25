@@ -23,10 +23,6 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
         return weatherData
     }
 
-    fun clearWeather(){
-        listener.clear(weatherData)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val holder = HistoryViewHolder(
             LayoutInflater.from(parent.context)

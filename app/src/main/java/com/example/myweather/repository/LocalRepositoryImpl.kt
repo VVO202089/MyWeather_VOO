@@ -15,5 +15,10 @@ class LocalRepositoryImpl(val localDataSource: HistoryDAO):LocalRepository {
         localDataSource.insert(convertWeatherToHistoryEntity(weather))
     }
 
+    override fun deleteAll(): List<Weather> {
+        localDataSource.deleteAll()
+        return listOf()
+    }
+
 
 }

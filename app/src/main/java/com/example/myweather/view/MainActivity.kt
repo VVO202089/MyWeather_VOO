@@ -6,11 +6,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myweather.R
 import com.example.myweather.databinding.ActivityMainBinding
-import com.example.myweather.domain.Weather
+import com.example.myweather.lesson10.MapsFragment
 import com.example.myweather.lesson6.MainBroadcastReceiver
 import com.example.myweather.lesson6.ThreadsFragment
 import com.example.myweather.lesson9.ContentProviderFragment
-import com.example.myweather.view.history.HistoryAdapter
 import com.example.myweather.view.history.HistoryFragment
 import com.example.myweather.view.main.MainFragment
 
@@ -103,14 +102,15 @@ class MainActivity : AppCompatActivity() {
                     .addToBackStack("").commit()
                 true
             }
-            R.id.action_clear_history -> {
-                // пока не понял, как обратиться к методу очистки истории
-                //HistoryFragment.
-                true
-            }
             R.id.action_open_fragment_content_provider -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, ContentProviderFragment.newInstance())
+                    .addToBackStack("").commit()
+                true
+            }
+            R.id.action_open_fragment_menu_google_maps -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, MapsFragment.newInstance())
                     .addToBackStack("").commit()
                 true
             }

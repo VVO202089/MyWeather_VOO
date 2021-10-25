@@ -3,7 +3,6 @@ package com.example.myweather.utils
 import com.example.myweather.domain.City
 import com.example.myweather.domain.Weather
 import com.example.myweather.domain.defaultCity
-import com.example.myweather.repository.FactDTO
 import com.example.myweather.repository.WeatherDTO
 import com.example.myweather.room.HistoryEntity
 

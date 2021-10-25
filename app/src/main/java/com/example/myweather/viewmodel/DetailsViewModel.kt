@@ -1,6 +1,5 @@
 package com.example.myweather.viewmodel
 
-import android.net.sip.SipErrorCode.SERVER_ERROR
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myweather.MyApp

@@ -1,7 +1,7 @@
 package com.example.myweather.repository
 
-import com.example.myweather.BuildConfig
-import com.example.myweather.BuildConfig.*
+import com.example.myweather.BuildConfig.YANDEX_API_URL
+import com.example.myweather.BuildConfig.YANDEX_API_VALUE
 import com.google.gson.GsonBuilder
 import retrofit2.Callback
 import retrofit2.Retrofit

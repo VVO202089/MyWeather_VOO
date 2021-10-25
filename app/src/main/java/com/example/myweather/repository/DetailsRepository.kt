@@ -1,8 +1,5 @@
 package com.example.myweather.repository
 
-import okhttp3.Callback
-import retrofit2.Retrofit
-
 
 interface DetailsRepository {
 

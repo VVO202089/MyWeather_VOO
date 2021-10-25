@@ -1,7 +1,5 @@
 package com.example.myweather.repository
 
-import okhttp3.Callback
-
 class DetailsRepositoryImpl(private val remoteDataSource: RemoteDataSource) : DetailsRepository {
 
     // уже не актиуально
