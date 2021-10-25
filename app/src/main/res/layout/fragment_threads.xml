@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15_dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="calculate"
+                android:textSize="@dimen/feels_like_text_size" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="2"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:text="10"
+                android:textSize="@dimen/feels_like_text_size" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/calcThreadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thread"
+            android:textSize="@dimen/feels_like_text_size" />
+
+        <Button
+            android:id="@+id/calcThreadHandlerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Handler Thread"
+            android:textSize="@dimen/feels_like_text_size" />
+
+        <Button
+            android:id="@+id/btnService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Service"
+            android:textSize="@dimen/feels_like_text_size" />
+
+        <Button
+            android:id="@+id/btnServiceBroadcast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Service+Broadcast"
+            android:textSize="@dimen/feels_like_text_size" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
