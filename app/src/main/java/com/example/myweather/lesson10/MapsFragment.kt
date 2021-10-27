@@ -1,13 +1,12 @@
 package com.example.myweather.lesson10
 
-import android.content.pm.PackageManager
+import android.app.AlertDialog
 import android.graphics.Color
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.myweather.R
 import com.example.myweather.databinding.FragmentGoogleMapsMainBinding
@@ -16,7 +15,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import java.util.jar.Manifest
 
 class MapsFragment : Fragment() {
 
@@ -102,10 +100,31 @@ class MapsFragment : Fragment() {
         binding.buttonSearch.setOnClickListener {
             val geocoder = Geocoder(requireContext())
             val addressRow = binding.searchAddress.text.toString()
-            val address = geocoder.getFromLocationName(addressRow, 1)
-            val location = LatLng(address[0].latitude, address[0].longitude)
-            moveToPosition(location)
+            if (addressRow.isNotEmpty()) {
+                val address = geocoder.getFromLocationName(addressRow, 1)
+                if (address.size > 0) {
+                    val location = LatLng(address[0].latitude, address[0].longitude)
+                    moveToPosition(location)
+                } else {
+                    // сообщим об ошибке
+                    showAlert(addressRow, "Внимание!")
+                }
+            } else {
+                // сообщим об ошибке
+                showAlert(addressRow, "Внимание!")
+            }
+
         }
+    }
+
+    private fun showAlert(addressRow: String, title: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(title)
+            .setMessage("Адрес $addressRow не найден")
+            .setPositiveButton("OK") { dialogInterface, i ->
+                dialogInterface.cancel()
+            }
+        builder.create().show()
     }
 
     private fun moveToPosition(location: LatLng) {
