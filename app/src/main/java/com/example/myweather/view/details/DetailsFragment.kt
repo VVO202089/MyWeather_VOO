@@ -1,5 +1,6 @@
 package com.example.myweather.view.details
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -89,10 +90,13 @@ class DetailsFragment : Fragment() {
                 binding.loadingLayout.visibility = View.INVISIBLE
                 binding.mainView.visibility = View.VISIBLE
                 val throbable = appState.error
+                throbable.message?.let {
+                    showAlertError("Внимание!", it)
+                }
                 //Snackbar.make(binding.root,"$throbable",Snackbar.LENGTH_LONG).show()
-                binding.root.show("ERROR $throbable","RELOAD",{
-                    getWeather()
-                })
+                //binding.root.show("ERROR $throbable","RELOAD",{
+                //    getWeather()
+                //)}
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
@@ -110,6 +114,16 @@ class DetailsFragment : Fragment() {
 
     fun getWeather(){
         viewModel.getWeatherFromRemoteSource(localWeather.city.lat,localWeather.city.lon)
+    }
+
+    private fun showAlertError(title: String, message: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialogInterface, i ->
+                dialogInterface.cancel()
+            }
+        builder.create().show()
     }
 
     /*fun getWeather() {

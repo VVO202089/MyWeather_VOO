@@ -42,6 +42,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            versionNameSuffix "-debug"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -54,6 +57,18 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        freeConfig {
+            dimension 'version'
+            versionNameSuffix '.free'
+        }
+        paid {
+            dimension 'version'
+            versionNameSuffix '.paid'
+        }
+
     }
 }
 
